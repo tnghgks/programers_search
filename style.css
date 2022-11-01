@@ -1,6 +1,7 @@
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
 }
 a {
   color: inherit;
@@ -16,21 +17,33 @@ li {
 body {
   background-color: #778beb;
 }
+.ir-hidden {
+  height: 1px;
+  width: 1px;
+  position: absolute;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  margin: 0;
+}
 
 .wrapper {
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .header {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: #f19066;
+  text-align: center;
 }
 .header #form-search {
   display: flex;
@@ -59,7 +72,7 @@ body {
 }
 
 #section-problem {
-  width: 60%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,5 +93,8 @@ body {
   font-weight: bold;
 }
 
-.list-problem .btn-search {
+@media (max-width: 800px) {
+  html {
+    font-size: 13px;
+  }
 }
