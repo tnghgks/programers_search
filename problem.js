@@ -6,12 +6,12 @@ let totalProblem = [];
 async function getDate() {
   try {
     const data = await fetch(
-      "https://school.programmers.co.kr/api/v1/school/challenges/?page=1&perPage=20&levels[]=1&levels[]=2&levels[]=3&levels[]=4&levels[]=5&languages[]=javascript&order=acceptance_desc"
+      "https://school.programmers.co.kr/api/v1/school/challenges/?page=1&perPage=20&levels[]=0&levels[]=1&levels[]=2&levels[]=3&levels[]=4&levels[]=5&languages[]=javascript&order=acceptance_desc"
     );
     const { result: problemList, totalPages } = await data.json();
     for (let i = 2; i < totalPages; i++) {
       let page = await fetch(
-        `https://school.programmers.co.kr/api/v1/school/challenges/?page=${i}&perPage=20&levels[]=1&levels[]=2&levels[]=3&levels[]=4&levels[]=5&languages[]=javascript&order=acceptance_desc`
+        `https://school.programmers.co.kr/api/v1/school/challenges/?page=${i}&perPage=20&levels[]=0&levels[]=1&levels[]=2&levels[]=3&levels[]=4&levels[]=5&languages[]=javascript&order=acceptance_desc`
       );
       const { result } = await page.json();
       problemList.push(...result);
