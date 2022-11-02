@@ -1,9 +1,41 @@
 const $form = document.querySelector("#form-search");
 const $sectionProblem = document.querySelector("#section-problem");
-
+const $progress = document.querySelector("#scroll");
 let totalProblem = [];
 
-async function getDate() {
+class Problem {
+  constructor(problem) {
+    this.title = problem.title;
+    this.id = problem.id;
+    this.level = problem.level;
+    this.partTitle = problem.partTitle;
+  }
+
+  draw() {
+    const ul = document.createElement("ul");
+    const li_title = document.createElement("li");
+    const a = document.createElement("a");
+    const h2 = document.createElement("h2");
+    const li_level = document.createElement("li");
+    const span_level = document.createElement("li");
+    const li_partTitle = document.createElement("li");
+    const span_partTitle = document.createElement("li");
+    ul.classList.add("list-problem");
+    h2.textContent = this.title;
+    a.setAttribute("href", `https://school.programmers.co.kr/learn/courses/30/lessons/${this.id}`);
+    a.setAttribute("target", "_blank");
+    span_level.textContent = `Level : ${this.level}`;
+    span_partTitle.textContent = this.partTitle;
+    a.append(h2);
+    li_title.append(a);
+    li_level.append(span_level);
+    li_partTitle.append(span_partTitle);
+    ul.append(li_title, li_level, li_partTitle);
+    return ul;
+  }
+}
+
+async function getData() {
   try {
     const data = await fetch(
       "https://school.programmers.co.kr/api/v1/school/challenges/?page=1&perPage=20&levels[]=0&levels[]=1&levels[]=2&levels[]=3&levels[]=4&levels[]=5&languages[]=javascript&order=acceptance_desc"
@@ -18,36 +50,13 @@ async function getDate() {
     }
     const $frag = new DocumentFragment();
     problemList.forEach((problem) => {
-      $frag.append(draw(problem));
+      $frag.append(new Problem(problem).draw());
     });
     totalProblem = [...problemList];
     $sectionProblem.append($frag);
   } catch (error) {
     console.log(error);
   }
-}
-
-function draw(problem) {
-  const ul = document.createElement("ul");
-  const li_title = document.createElement("li");
-  const a = document.createElement("a");
-  const h2 = document.createElement("h2");
-  const li_level = document.createElement("li");
-  const span_level = document.createElement("li");
-  const li_partTitle = document.createElement("li");
-  const span_partTitle = document.createElement("li");
-  ul.classList.add("list-problem");
-  h2.textContent = problem.title;
-  a.setAttribute("href", `https://school.programmers.co.kr/learn/courses/30/lessons/${problem.id}`);
-  a.setAttribute("target", "_blank");
-  span_level.textContent = `Level : ${problem.level}`;
-  span_partTitle.textContent = problem.partTitle;
-  a.append(h2);
-  li_title.append(a);
-  li_level.append(span_level);
-  li_partTitle.append(span_partTitle);
-  ul.append(li_title, li_level, li_partTitle);
-  return ul;
 }
 
 function search(event) {
@@ -58,7 +67,7 @@ function search(event) {
   const searched = totalProblem.filter((problem) => re.test(problem.title));
 
   searched.forEach((problem) => {
-    $frag.append(draw(problem));
+    $frag.append(new Problem(problem).draw());
   });
 
   $sectionProblem.innerHTML = "";
@@ -66,8 +75,21 @@ function search(event) {
 }
 
 function init() {
-  getDate();
+  getData();
+  let debouncer;
   $form.addEventListener("submit", search);
+
+  window.addEventListener("scroll", function () {
+    if (debouncer) {
+      clearTimeout(debouncer);
+    }
+    debouncer = setTimeout(function () {
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      $progress.value = scrolled;
+    }, 50);
+  });
 }
 
 init();

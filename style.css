@@ -13,6 +13,20 @@ a:visited {
 li {
   list-style-type: none;
 }
+/* For Firefox */
+progress::-moz-progress-bar {
+  background: #f19066;
+}
+
+/* For Chrome or Safari */
+progress::-webkit-progress-value {
+  background: #f19066;
+}
+
+/* For IE10 */
+progress {
+  background: #f19066;
+}
 
 body {
   background-color: #778beb;
@@ -44,16 +58,26 @@ body {
   font-size: 1.5rem;
   color: #f19066;
   text-align: center;
+  margin-top: 30px;
 }
+#scroll {
+  width: 100%;
+  height: 5px;
+  margin-top: 10px;
+  padding: 0px;
+  border-radius: 0px;
+}
+
 .header #form-search {
   display: flex;
   width: 100%;
-  margin-top: 30px;
 }
 .header .input-search {
   width: 100%;
   height: 50px;
   flex-grow: 1;
+  border-radius: 0px;
+  border: none;
 }
 .header .btn-search {
   width: 80px;
