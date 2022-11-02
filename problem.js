@@ -39,6 +39,7 @@ function draw(problem) {
   ul.classList.add("list-problem");
   h2.textContent = problem.title;
   a.setAttribute("href", `https://school.programmers.co.kr/learn/courses/30/lessons/${problem.id}`);
+  a.setAttribute("target", "_blank");
   span_level.textContent = `Level : ${problem.level}`;
   span_partTitle.textContent = problem.partTitle;
   a.append(h2);
@@ -66,7 +67,7 @@ function search(event) {
 
 function init() {
   getDate();
+  $form.addEventListener("submit", search);
 }
 
-$form.addEventListener("submit", search);
 init();
