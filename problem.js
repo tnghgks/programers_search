@@ -1,5 +1,7 @@
 const $form = document.querySelector("#form-search");
 const $sectionProblem = document.querySelector("#section-problem");
+const $main = document.querySelector(".main");
+const $header = document.querySelector(".header");
 const $progress = document.querySelector("#scroll");
 let totalProblem = [];
 
@@ -74,20 +76,24 @@ function search(event) {
   $sectionProblem.append($frag);
 }
 
+function changeProgress() {
+  var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  var scrolled = (winScroll / height) * 100;
+  $progress.value = scrolled;
+}
+
 function init() {
   getData();
   let debouncer;
   $form.addEventListener("submit", search);
 
-  window.addEventListener("scroll", function () {
+  window.addEventListener("scroll", () => {
     if (debouncer) {
       clearTimeout(debouncer);
     }
-    debouncer = setTimeout(function () {
-      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      var scrolled = (winScroll / height) * 100;
-      $progress.value = scrolled;
+    debouncer = setTimeout(() => {
+      changeProgress();
     }, 50);
   });
 }
