@@ -121,14 +121,31 @@ body {
   justify-content: space-between;
   padding: 5px 20px;
 }
+.list-problem li:nth-child(1) {
+  flex-basis: 50%;
+  font-size: 1rem;
+  overflow: hidden;
+}
+
+.list-problem li:nth-child(1) a h2 {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
 .list-problem li:nth-child(2) {
   flex-grow: 1;
   font-weight: bold;
+  padding-left: 10px;
+  white-space: nowrap;
 }
-
-@media (max-width: 800px) {
-  html {
-    font-size: 13px;
-  }
+.list-problem li:nth-child(3) {
+  font-size: 0.8rem;
+  flex-basis: 200px;
+  flex-grow: 1;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 20px;
 }

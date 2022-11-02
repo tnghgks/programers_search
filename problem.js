@@ -19,9 +19,9 @@ class Problem {
     const a = document.createElement("a");
     const h2 = document.createElement("h2");
     const li_level = document.createElement("li");
-    const span_level = document.createElement("li");
+    const span_level = document.createElement("span");
     const li_partTitle = document.createElement("li");
-    const span_partTitle = document.createElement("li");
+    const span_partTitle = document.createElement("span");
     ul.classList.add("list-problem");
     h2.textContent = this.title;
     a.setAttribute("href", `https://school.programmers.co.kr/learn/courses/30/lessons/${this.id}`);
@@ -51,6 +51,7 @@ async function getData() {
       problemList.push(...result);
     }
     const $frag = new DocumentFragment();
+    problemList.sort((a, b) => a.level - b.level);
     problemList.forEach((problem) => {
       $frag.append(new Problem(problem).draw());
     });
